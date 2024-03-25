@@ -5,7 +5,7 @@ from pathlib import Path
 class Database():
   def __init__(self):
     self.__info = self.__load_database_configuration()
-    self.__connection = self.__connect()
+    
 
   def __load_database_configuration(self):
     root_folder = Path(__file__).parents[2]
@@ -23,14 +23,14 @@ class Database():
     )
     return connection
   
-  def __close_connection(self):
-    if not self.__connection.closed: self.__connection.close()
+  def __close_connection(self,connection):
+    if not connection.closed: connection.close()
 
-  def __commit(self,):
-    self.__connection.commit()
+  def __commit(self,connection):
+    connection.commit()
 
-  def __create_cursor(self):
-    return self.__connection.cursor()
+  def __create_cursor(self,connection):
+    return connection.cursor()
   
   def __close_cursor(self,cursor):
     if not cursor.closed: cursor.close()
@@ -45,8 +45,28 @@ class Database():
 
     return results
 
+  def insert_relational_tables(self,sql,values):
+    connection = self.__connect()
+    cursor = self.__create_cursor(connection)
+    rowsAffected = 0 
+    try:
+      cursor.execute(sql,values)
+      rowsAffected = cursor.rowcount
+      self.__commit(connection)
+    except (Exception, psycopg.DatabaseError) as error:
+      print(error)
+      connection.rollback()
+      self.__close_cursor(cursor)
+      self.__close_connection(connection)
+      return -1
+
+    self.__close_cursor(cursor)
+    self.__close_connection(connection)
+    return rowsAffected
+  
   def insert(self,sql,values):
-    cursor = self.__create_cursor()
+    connection = self.__connect()
+    cursor = self.__create_cursor(connection)
     resultSet = {
       "rowsAffected": 0,
       "lastId": 0
@@ -56,57 +76,60 @@ class Database():
       resultSet['rowsAffected'] = cursor.rowcount
       cursor.execute("select lastval()")
       resultSet['lastId'] = cursor.fetchone()[0]
-      self.__commit()
+      self.__commit(connection)
     except (Exception, psycopg.DatabaseError) as error:
       print(error)
-      self.__connection.rollback()
+      connection.rollback()
       self.__close_cursor(cursor)
-      self.__close_connection()
+      self.__close_connection(connection)
       resultSet['rowsAffected'] = -1
       return resultSet
 
     self.__close_cursor(cursor)
-    self.__close_connection()
+    self.__close_connection(connection)
     return resultSet
 
   def delete(self,sql,values):
-    cursor = self.__create_cursor()
+    connection = self.__connect()
+    cursor = self.__create_cursor(connection)
     rowsAffected = 0
     try:
       cursor.execute(sql,values)
       rowsAffected = cursor.rowcount
-      self.__commit()
+      self.__commit(connection)
     except (Exception, psycopg.DatabaseError) as error:
       print(error)
-      self.__connection.rollback()
+      connection.rollback()
       self.__close_cursor(cursor)
-      self.__close_connection()
+      self.__close_connection(connection)
       return -1
 
     self.__close_cursor(cursor)
-    self.__close_connection()
+    self.__close_connection(connection)
     return rowsAffected
 
   def update(self,sql,values):
-    cursor = self.__create_cursor()
+    connection = self.__connect()
+    cursor = self.__create_cursor(connection)
     rowsAffected = 0
     try:
       cursor.execute(sql,values)
       rowsAffected = cursor.rowcount
-      self.__commit()
+      self.__commit(connection)
     except (Exception, psycopg.DatabaseError) as error:
       print(error)
-      self.__connection.rollback()
+      connection.rollback()
       self.__close_cursor(cursor)
-      self.__close_connection()
+      self.__close_connection(connection)
       return -1
 
     self.__close_cursor(cursor)
-    self.__close_connection()
+    self.__close_connection(connection)
     return rowsAffected
 
   def select(self,sql):
-    cursor = self.__create_cursor() 
+    connection = self.__connect()
+    cursor = self.__create_cursor(connection) 
     results = []
     try:
       cursor.execute(sql)
@@ -115,15 +138,15 @@ class Database():
     except (Exception, psycopg.DatabaseError) as error:
       print(error)
       self.__close_cursor(cursor)
-      self.__close_connection()
+      self.__close_connection(connection)
       return -1
 
     self.__close_cursor(cursor)
-    self.__close_connection()
+    self.__close_connection(connection)
     return results
 
   def connection_test(self):
     connection = self.__connect()
-    if self.__connection.closed == False:
+    if connection.closed == False:
       print('Database Connection is Open')
       self.__close_connection(connection)

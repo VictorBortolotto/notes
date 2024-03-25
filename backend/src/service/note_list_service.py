@@ -21,7 +21,7 @@ class NoteListService():
     responseObj = {}
     rowsAffected = self.__db.update("update note_list set name = %s where id = %s",values)
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note List Update With Succes", "")
+      responseObj = response.Response(200,"Success", "Note List Update With Success", "")
     elif rowsAffected == 0:
       responseObj = response.Response(404,"Info", "Note List Not Found", "")
     else:
@@ -34,7 +34,7 @@ class NoteListService():
     rowsAffected = self.__db.delete("delete from note_list where id = %s",values)
     responseObj = {}
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note List Deleted With Succes", "")
+      responseObj = response.Response(200,"Success", "Note List Deleted With Success", "")
     elif rowsAffected == 0:
       responseObj = response.Response(404,"Info", "Note List Not Found", "")
     else:

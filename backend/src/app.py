@@ -1,6 +1,6 @@
 from flask import Flask, request, Response
 app = Flask(__name__)
-from controller import user_controller, note_list_controller
+from controller import user_controller, note_list_controller, note_controller
 from utils import routes
 
 @app.route(routes.Routes.NEW_USER.value, methods=['POST'])
@@ -30,4 +30,27 @@ def delete_note_list(id):
 def update_note_list_name(id):
   new_name = request.get_json()
   response = note_list_controller.NoteListController().update_note_list_name(new_name,id)
+  return Response(response.response_to_json(),mimetype='application/json')
+
+@app.route(routes.Routes.NEW_NOTE.value, methods=['POST'])
+def new_note():
+  new_note = request.get_json()
+  response = note_controller.NoteController().create_note(new_note)
+  return Response(response.response_to_json(),mimetype='application/json')
+
+@app.route(routes.Routes.DELETE_NOTE.value, methods=['DELETE'])
+def delete_note(id_note_list,id_note):
+  response = note_controller.NoteController().delete_note(id_note,id_note_list)
+  return Response(response.response_to_json(),mimetype='application/json')
+
+@app.route(routes.Routes.UPDATE_NOTE_NAME.value, methods=['PATCH'])
+def update_note_name(id):
+  new_name = request.get_json()
+  response = note_controller.NoteController().update_note_name(new_name,id)
+  return Response(response.response_to_json(),mimetype='application/json')
+
+@app.route(routes.Routes.UPDATE_NOTE_DESCRIPTION.value, methods=['PATCH'])
+def update_note_description(id):
+  new_description = request.get_json()
+  response = note_controller.NoteController().update_note_description(new_description,id)
   return Response(response.response_to_json(),mimetype='application/json')

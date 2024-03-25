@@ -20,7 +20,7 @@ class UserService():
     values = (data['password'], id)
     rowsAffected = self.__db.update("update users set password = %s where id = %s", values)
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "User Update with Succes", "")
+      responseObj = response.Response(200,"Success", "User Update with Success", "")
     elif rowsAffected == 0:
       responseObj = response.Response(404,"Info", "User Not Found", "")
     else:
