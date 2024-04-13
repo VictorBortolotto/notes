@@ -1,11 +1,11 @@
 <style>
-  @import '../styles/login.style.css';
+  @import '../styles/signup.style.css';
 </style>
 
 <template>
-  <div class="login-container">
-    <div class="login-area">
-      <div class="login-form">
+  <div class="signup-container">
+    <div class="signup-area">
+      <div class="signup-form">
         <ion-text style="color: rgb(93, 221, 93);" ><h1>SIGN UP</h1></ion-text>
         <InputComponent  title="Email" style="color: black; width: 90%; background: white;" placeholder="Email" labelPlacement="floating" type="text" fill="outline"></InputComponent>
         <InputComponent title="Password" style="color: black; width: 90%; background: white;" placeholder="Password" labelPlacement="floating" type="password" fill="outline"></InputComponent>
