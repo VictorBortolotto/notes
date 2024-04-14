@@ -1,7 +1,10 @@
 from flask import Flask, request, Response
+from flask_cors import CORS
 app = Flask(__name__)
 from controller import user_controller, note_list_controller, note_controller
 from utils import routes
+CORS(app, origins=["http://localhost:5173/*","http://localhost:5173/*"])
+
 
 @app.route(routes.Routes.NEW_USER.value, methods=['POST'])
 def signup():

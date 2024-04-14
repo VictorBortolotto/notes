@@ -33,5 +33,5 @@ class Response():
     return '[ status_code: ' + str(self.__status_code) + ', message: ' + self.__message + ', description: ' + self.__description + ', obj: ' + self.__obj + ' ]'
 
   def response_to_json(self):
-    return '{ "statusCode": ' + str(self.__status_code) + ', "message": "' + self.__message + '", "description": "' + self.__description +  '", "obj": ' + self.__obj + ' }'
+    return '{ "statusCode": ' + str(self.__status_code) + ', "message": "' + self.__message + '", "description": "' + self.__description +  '", "obj": "' + self.__obj + '" }'
     

@@ -69,7 +69,8 @@ class Database():
     cursor = self.__create_cursor(connection)
     resultSet = {
       "rowsAffected": 0,
-      "lastId": 0
+      "lastId": 0,
+      "onError": ""
     }
     try:
       cursor.execute(sql,values)
@@ -83,6 +84,7 @@ class Database():
       self.__close_cursor(cursor)
       self.__close_connection(connection)
       resultSet['rowsAffected'] = -1
+      resultSet["onError"] = error
       return resultSet
 
     self.__close_cursor(cursor)

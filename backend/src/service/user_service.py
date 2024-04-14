@@ -12,7 +12,8 @@ class UserService():
     if resultSet['rowsAffected'] == 1:
       responseObj = response.Response(200,"Success", "User Created with Success", str(resultSet["lastId"]))
     else:
-      responseObj = response.Response(500,"Error", "Error while insert user in database", "")
+      responseObj = response.Response(500,"Error", "Error while insert user in database","")
+      print(responseObj.response_to_json())
     
     return responseObj
   

@@ -1,6 +1,6 @@
 create table users (
 	id serial,
-	email varchar(500) not null,
+	email varchar(500) not null unique,
 	password varchar(200) not null
 );
 
