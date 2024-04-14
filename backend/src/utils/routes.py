@@ -1,6 +1,7 @@
 from enum import Enum
 
 class Routes(Enum):
+  LOGIN = '/login'
   USER = '/user'
   NEW_USER = USER + '/new-user'
   UPDATE_USER_PASSWORD = USER + '/<id>/new-password'

@@ -1,19 +1,20 @@
 from db import database
 from utils import response
+from werkzeug.security import generate_password_hash
 
 class UserService():
   def __init__(self):
     self.__db = database.Database()
 
   def create_user(self,newUser):
-    values = (newUser['email'], newUser['password'])
+    password = generate_password_hash(newUser['password'])
+    values = (newUser['email'], password)
     responseObj = {}
     resultSet = self.__db.insert("insert into users(email,password) values(%s, %s)", values)
     if resultSet['rowsAffected'] == 1:
       responseObj = response.Response(200,"Success", "User Created with Success", str(resultSet["lastId"]))
     else:
       responseObj = response.Response(500,"Error", "Error while insert user in database","")
-      print(responseObj.response_to_json())
     
     return responseObj
   

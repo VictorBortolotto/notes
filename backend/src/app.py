@@ -1,11 +1,15 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
 app = Flask(__name__)
-from controller import user_controller, note_list_controller, note_controller
+from controller import user_controller, note_list_controller, note_controller, auth_controller
 from utils import routes
 CORS(app, origins=["http://localhost:5173/*","http://localhost:5173/*"])
 
-
+@app.route(routes.Routes.LOGIN.value, methods=['POST'])
+def login():
+  user = request.get_json()
+  return Response(auth_controller.AuthController.authenticate(user))
+  
 @app.route(routes.Routes.NEW_USER.value, methods=['POST'])
 def signup():
   new_user = request.get_json()
