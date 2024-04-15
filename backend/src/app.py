@@ -7,8 +7,8 @@ CORS(app, origins=["http://localhost:5173/*","http://localhost:5173/*"])
 
 @app.route(routes.Routes.LOGIN.value, methods=['POST'])
 def login():
-  teste = request.get_json()
-  response = auth_controller.AuthController().authenticate(teste)
+  user = request.get_json()
+  response = auth_controller.AuthController().authenticate(user)
   return Response(response.response_to_json(),mimetype='application/json',status=response.get_status_code())
   
 @app.route(routes.Routes.NEW_USER.value, methods=['POST'])
