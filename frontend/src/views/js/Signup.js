@@ -1,6 +1,6 @@
 import { openToast } from "../../common/js/toast";
 import loginService from "../../services/login.service"
-import { isEmptyOrNull } from "../../utils/utils";
+import { isEmptyOrNull, isPasswordsEquals } from "../../utils/utils";
 
 export async function onClickSignUp() {
   let email = document.getElementById('email').value;
@@ -26,12 +26,8 @@ export async function onClickSignUp() {
   if(response.statusCode === 200){
     console.log(response);
   }else{
-    console.log(response);
     openToast('error', response.description)
   }
 }
 
-const isPasswordsEquals = (password, confirmPassword) => {
-  return password === confirmPassword;
-}
 

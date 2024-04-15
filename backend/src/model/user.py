@@ -15,8 +15,8 @@ class User():
   def get_password(self):
     return self.__password
   
-  def note_to_string(self):
+  def user_to_string(self):
     return '[ id: ' + str(self.__id) + ', email: ' + self.__email + ', password: ' + self.__password + ' ]'
 
-  def note_to_json(self):
+  def user_to_json(self):
     return '{ "id": ' + str(self.__id) + ', "email": "' + self.__name + '", "password": "' + self.__password + '" }'

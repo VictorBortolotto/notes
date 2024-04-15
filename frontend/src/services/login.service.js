@@ -20,7 +20,22 @@ export const createUser = async(user) => {
 
 }
 
+export const login = async(user) => {
+
+  const request = {
+      method: methods.methods.post,
+      headers: header,
+      mode: 'cors',
+      cache: 'default',
+      body: JSON.stringify(user)
+  }
+
+  let response = await fetch(routes.defaultRoute + routes.loginRoute.login, request).then(response => response.json());
+  return response;
+
+}
 
 export default {
-  createUser
+  createUser,
+  login
 }

@@ -35,16 +35,6 @@ class Database():
   def __close_cursor(self,cursor):
     if not cursor.closed: cursor.close()
 
-  
-  def __fetch_select_lines(self,cursor):
-    queryResult = cursor.fetchall()
-    results = []
-    for data in queryResult:
-      print(data)
-      results.append(data)
-
-    return results
-
   def insert_relational_tables(self,sql,values):
     connection = self.__connect()
     cursor = self.__create_cursor(connection)
@@ -129,14 +119,13 @@ class Database():
     self.__close_connection(connection)
     return rowsAffected
 
-  def select(self,sql):
+  def select(self,sql,values):
     connection = self.__connect()
     cursor = self.__create_cursor(connection) 
     results = []
     try:
-      cursor.execute(sql)
-      results = self.__fetch_select_lines(cursor)
-      print(results)
+      cursor.execute(sql,values)
+      results = cursor.fetchall()
     except (Exception, psycopg.DatabaseError) as error:
       print(error)
       self.__close_cursor(cursor)

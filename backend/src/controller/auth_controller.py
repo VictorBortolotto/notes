@@ -4,6 +4,5 @@ class AuthController():
   def __init__(self):
     self.__auth_service = auth_service.AuthService()
 
-  def authenticate(self, user):
-    self.__auth_service.authenticate(user)
-    
+  def authenticate(self,user):
+    return self.__auth_service.authenticate(user)

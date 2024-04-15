@@ -1,18 +1,28 @@
 from db import database
 from utils import response
+from model import auth
 from werkzeug.security import generate_password_hash
 
 class UserService():
   def __init__(self):
     self.__db = database.Database()
+    self.__auth = auth.Auth()
 
   def create_user(self,newUser):
+    user = self.__get_user_by_email(newUser['email'])    
+    if len(user) > 0:
+      return response.Response(403,"Info", "E-mail Already Exists!", "")
+    
+    return self.__insert_new_user(newUser)
+
+  def __insert_new_user(self,newUser):
     password = generate_password_hash(newUser['password'])
     values = (newUser['email'], password)
     responseObj = {}
     resultSet = self.__db.insert("insert into users(email,password) values(%s, %s)", values)
     if resultSet['rowsAffected'] == 1:
-      responseObj = response.Response(200,"Success", "User Created with Success", str(resultSet["lastId"]))
+      token = self.__auth.get_token()
+      responseObj = response.Response(200,"Success", "User Created with Success", '"id": ' + str(resultSet["lastId"]) + ', "token": "' + token + '"')
     else:
       responseObj = response.Response(500,"Error", "Error while insert user in database","")
     
@@ -29,3 +39,7 @@ class UserService():
       responseObj = response.Response(500,"Error", "Error While Update User in Database", "")
 
     return responseObj
+  
+  def __get_user_by_email(self,email):
+    values = [email]
+    return self.__db.select("select email, password from users where email like %s", values)

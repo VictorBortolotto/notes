@@ -7,10 +7,11 @@
     <div class="login-area">
       <div class="login-form">
         <ion-text style="color: rgb(93, 221, 93);" ><h1>LOGIN</h1></ion-text>
-        <InputComponent  title="Email" style="color: black; width: 90%; background: white;" placeholder="Email" labelPlacement="floating" type="text" fill="outline"></InputComponent>
-        <InputComponent title="Password" style="color: black; width: 90%; background: white;" placeholder="Password" labelPlacement="floating" type="password" fill="outline"></InputComponent>
-        <ButtonComponent text="SIGN IN" onclick="console.log('Hello World')" styleProps="font-size: 18px; width: 90%; height: 10%; --background: rgb(93, 221, 93);"></ButtonComponent>
+        <InputComponent id="email" title="Email" style="color: black; width: 90%; background: white;" placeholder="Email" labelPlacement="floating" type="text" fill="outline"></InputComponent>
+        <InputComponent id="password" title="Password" style="color: black; width: 90%; background: white;" placeholder="Password" labelPlacement="floating" type="password" fill="outline"></InputComponent>
+        <ButtonComponent text="SIGN IN" @click="onClickSignIn()" styleProps="font-size: 18px; width: 90%; height: 10%; --background: rgb(93, 221, 93);"></ButtonComponent>
         <ion-text><a href="/signup" style="color: rgb(93, 221, 93); text-decoration: none;">Create account</a></ion-text>
+        <ToastComponent id="toast" message="TESTE" duration="500"></ToastComponent>
       </div>
       <div class="welcome-signup">
         <ion-text style="color: white;" ><h1 style="font-size: xx-large;">WELCOME TO NOTES!</h1></ion-text>
@@ -24,4 +25,6 @@
   import { IonText } from '@ionic/vue';
   import InputComponent from '../common/components/InputComponent.vue';
   import ButtonComponent from '../common/components/ButtonComponent.vue';
+  import { onClickSignIn } from './js/Login';
+  import ToastComponent from '../common/components/ToastComponent.vue';
 </script>
