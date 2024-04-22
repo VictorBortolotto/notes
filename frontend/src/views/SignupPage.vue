@@ -10,8 +10,8 @@
         <InputComponent id="email" title="Email" style="color: black; width: 90%; background: white;" placeholder="Email" labelPlacement="floating" type="text" fill="outline"></InputComponent>
         <InputComponent id="password" title="Password" style="color: black; width: 90%; background: white;" placeholder="Password" labelPlacement="floating" type="password" fill="outline"></InputComponent>
         <InputComponent id="confirm-password" title="Confirm Password" style="color: black; width: 90%; background: white;" placeholder="Confirm Password" labelPlacement="floating" type="password" fill="outline"></InputComponent>
-        <ButtonComponent text="CREATE" @click="onClickSignUp()" styleProps="font-size: 18px; width: 90%; height: 10%; --background: rgb(93, 221, 93);"></ButtonComponent>
-        <ToastComponent id="toast" message="TESTE" duration="500"></ToastComponent>
+        <ButtonComponent @click="onClickSignUp()" styleProps="font-size: 18px; width: 90%; height: 10%; --background: rgb(93, 221, 93);">CREATE</ButtonComponent>
+        <ToastComponent id="toast"></ToastComponent>
       </div>
       <div class="welcome-signup">
         <ion-text style="color: white;" ><h1 style="font-size: xx-large;">DONT HAVE AN ACCOUNT?</h1></ion-text>
@@ -23,8 +23,8 @@
 
 <script setup>
   import { IonText } from '@ionic/vue';
-  import InputComponent from '../common/components/InputComponent.vue';
-  import ButtonComponent from '../common/components/ButtonComponent.vue';
+  import InputComponent from '../common/components/inputComponent/InputComponent.vue';
+  import ButtonComponent from '../common/components/buttomComponent/ButtonComponent.vue';
   import { onClickSignUp } from './js/Signup.js';
-  import ToastComponent from '../common/components/ToastComponent.vue';
+  import ToastComponent from '../common/components/toastCompoenent/ToastComponent.vue';
 </script>

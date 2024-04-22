@@ -1,5 +1,7 @@
 <template>
-  <ion-button :class="className" :id="id" :expand="expand" :shape="shape" :fill="fill" :size="size" :color="color" :style="styleProps" onclick="click">{{ text }}</ion-button>
+  <ion-button :class="className" :id="id" :expand="expand" :shape="shape" :fill="fill" :size="size" :color="color" :style="styleProps" onclick="click">
+    <slot></slot>
+  </ion-button>
 </template>
 
 <script>
@@ -11,15 +13,20 @@
     props: {
       className: String,
       id: String,
-      text: String,
       expand: String,
       shape: String,
       fill: String,
       size: String,
       styleProps: String,
       color: String,
-      click: Function
+      click: Function,
+      icon: Object
     },
-    components: { IonButton }
+    components: { 
+      IonButton
+    },
+    setup(props) {
+      return props.icon
+    }
   });
 </script>
