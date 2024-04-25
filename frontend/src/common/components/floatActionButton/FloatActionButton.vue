@@ -12,6 +12,7 @@
   import { defineComponent } from 'vue';
 
   export default defineComponent({
+    name: 'FloatActionButtonComponent',
     components: { IonFab, IonFabButton, IonIcon },
     setup() {
       return { add, chevronUp };

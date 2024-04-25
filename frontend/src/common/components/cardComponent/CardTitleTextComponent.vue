@@ -9,7 +9,7 @@
   import { defineComponent } from 'vue';
 
   export default defineComponent({
-    name: 'CardContentComponent',
+    name: 'CardTitleTextComponent',
     props: {
       styleProps: String
     },

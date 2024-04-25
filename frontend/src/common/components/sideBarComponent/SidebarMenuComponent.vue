@@ -21,6 +21,7 @@
   import { defineComponent } from 'vue';
 
   export default defineComponent({
+    name: 'SidebarMenuComponent',
     components: {
       IonContent,
       IonHeader,
