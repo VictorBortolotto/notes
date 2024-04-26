@@ -1,5 +1,5 @@
 <style>
-  @import '../styles/signup.style.css';
+  @import './styles/signup.style.css';
 </style>
 
 <template>
@@ -23,8 +23,8 @@
 
 <script setup>
   import { IonText } from '@ionic/vue';
-  import InputComponent from '../common/components/inputComponent/InputComponent.vue';
-  import ButtonComponent from '../common/components/buttomComponent/ButtonComponent.vue';
+  import InputComponent from '../../common/components/inputComponent/InputComponent.vue';
+  import ButtonComponent from '../../common/components/buttomComponent/ButtonComponent.vue';
   import { onClickSignUp } from './js/Signup.js';
-  import ToastComponent from '../common/components/toastCompoenent/ToastComponent.vue';
-</script>
+  import ToastComponent from '../../common/components/toastCompoenent/ToastComponent.vue';
+</script>./js/Signup.js

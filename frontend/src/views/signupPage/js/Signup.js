@@ -1,6 +1,6 @@
-import { openToast } from "../../common/js/toast";
-import loginService from "../../services/login.service"
-import { isEmptyOrNull, isPasswordsEquals, setLocalStorage } from "../../utils/utils";
+import { openToast } from "../../../common/js/toast";
+import loginService from "../../../services/login.service"
+import { isEmptyOrNull, isPasswordsEquals, setLocalStorage } from "../../../utils/utils";
 
 export async function onClickSignUp() {
   let email = document.getElementById('email').value;

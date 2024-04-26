@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import LoginPage from '../views/LoginPage.vue';
-import SignupPage from '../views/SignupPage.vue';
-import HomePage from '../views/HomePage.vue'
+import LoginPage from '../views/loginPage/LoginPage.vue';
+import SignupPage from '../views/signupPage/SignupPage.vue';
+import HomePage from '../views/homePage/HomePage.vue'
 
 const routes = [
   {
