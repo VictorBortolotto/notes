@@ -12,7 +12,7 @@ class NoteService():
     if resultSet['rowsAffected'] == 1:
       responseObj = self.__insert_into_note_note_list(resultSet['lastId'],note['idNoteList'])
     else:
-      responseObj = response.Response(500,"Error", "Error While Inserting Note in Database", "")
+      responseObj = response.Response(500,"Error", "Error While Inserting Note in Database", "{}")
     
     return responseObj
   
@@ -21,7 +21,7 @@ class NoteService():
     rowsAffected = self.__db.insert_relational_tables("insert into note_note_list(id_note_list,id_note) values(%s,%s)", values)
     responseObj = {}
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note Created with Success", str(id_note))
+      responseObj = response.Response(200,"Success", "Note Created with Success", '{"idNote":' + str(id_note) + "}")
     else:
       responseObj = self.__delete_note_when_error(id_note)
       
@@ -30,9 +30,9 @@ class NoteService():
   def __delete_note_when_error(self,id_note):
     rowsAffected = self.__db.delete("delete from note where id = %s",str(id_note))
     if rowsAffected == 1:
-      responseObj = response.Response(500,"Error", "Error While Inserting Note in Database", "")
+      responseObj = response.Response(500,"Error", "Error While Inserting Note in Database", "{}")
     else:
-      responseObj = response.Response(500,"Error", "Error Trying to Delete Note in Database After an Error to Insert", str(id_note))
+      responseObj = response.Response(500,"Error", "Error Trying to Delete Note in Database After an Error to Insert", '{"idNote":' + str(id_note) + "}")
     
     return responseObj
   
@@ -41,11 +41,11 @@ class NoteService():
     responseObj = {}
     rowsAffected = self.__db.update("update note set name = %s where id = %s",values)
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note Update With Success", "")
+      responseObj = response.Response(200,"Success", "Note Update With Success", "{}")
     elif rowsAffected == 0:
-      responseObj = response.Response(404,"Info", "Note Not Found", "")
+      responseObj = response.Response(404,"Info", "Note Not Found", "{}")
     else:
-      responseObj = response.Response(500,"Error", "Error While Updating Note in Database", "") 
+      responseObj = response.Response(500,"Error", "Error While Updating Note in Database", "{}") 
 
     return responseObj
 
@@ -54,11 +54,11 @@ class NoteService():
     responseObj = {}
     rowsAffected = self.__db.update("update note set description = %s where id = %s",values)
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note Update With Success", "")
+      responseObj = response.Response(200,"Success", "Note Update With Success", "{}")
     elif rowsAffected == 0:
-      responseObj = response.Response(404,"Info", "Note Not Found", "")
+      responseObj = response.Response(404,"Info", "Note Not Found", "{}")
     else:
-      responseObj = response.Response(500,"Error", "Error While Updating Note in Database", "") 
+      responseObj = response.Response(500,"Error", "Error While Updating Note in Database", "{}") 
 
     return responseObj
   
@@ -68,9 +68,9 @@ class NoteService():
     if rowsAffected == 1:
       responseObj = self.__delete(id_note)
     elif rowsAffected == 0:
-      responseObj = response.Response(404,"Info", "Note Not Found", "")
+      responseObj = response.Response(404,"Info", "Note Not Found", "{}")
     else:
-      responseObj = response.Response(500,"Error", "Error While Deleting Note in Database", "") 
+      responseObj = response.Response(500,"Error", "Error While Deleting Note in Database", "{}") 
 
     return responseObj
   
@@ -84,8 +84,8 @@ class NoteService():
     value = [id_note]
     rowsAffected = self.__db.delete("delete from note where id = %s",value)
     if rowsAffected == 1:
-      responseObj = response.Response(200,"Success", "Note Deleted With Success", "")
+      responseObj = response.Response(200,"Success", "Note Deleted With Success", "{}")
     else:
-      responseObj = response.Response(500,"Error", "Error While Deleting Note in Database", "") 
+      responseObj = response.Response(500,"Error", "Error While Deleting Note in Database", "{}") 
 
     return responseObj

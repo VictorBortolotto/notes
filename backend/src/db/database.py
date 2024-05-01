@@ -5,8 +5,7 @@ from pathlib import Path
 class Database():
   def __init__(self):
     self.__info = self.__load_database_configuration()
-    
-
+  
   def __load_database_configuration(self):
     root_folder = Path(__file__).parents[2]
     config = open(root_folder / 'resources\\database_config.json')

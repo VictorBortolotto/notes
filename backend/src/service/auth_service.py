@@ -11,16 +11,19 @@ class AuthService():
   def authenticate(self, user):
     self.__auth.set_email(user['email'])
     self.__auth.set_pasword(user['password'])
-    dbUser = self.__get_user_by_email()
+    resultSet = self.__get_user_by_email()
 
-    if dbUser == -1: return response.Response(500,"Error", "Erro to search user in database!", "")
+    if resultSet == -1: return response.Response(500,"Error", "Erro to search user in database!", "{}")
 
-    if not self.__check_user(dbUser): return response.Response(404,"Not found", "User not found", "")
+    if not self.__check_user(resultSet): return response.Response(404,"Not found", "User not found", "{}")
+
+    auth = self.__create_auth_obj(resultSet)
     
-    if not self.__check_password(dbUser[0][1]):
+    if not self.__check_password(auth.get_password()):
       return response.Response(401,"Unauthorized", "Wrong password!", "")
     else:
-      return response.Response(200,"Authorized", "", '"token": "' + self.__auth.get_token() + '"')
+      auth.set_token(self.__auth.get_token())
+      return response.Response(200,"Authorized", "", auth.auth_to_json())
 
   def __check_user(self, user):
     return len(user) > 0
@@ -30,4 +33,12 @@ class AuthService():
   
   def __get_user_by_email(self):
     values = [self.__auth.get_email()]
-    return self.__database.select("select email, password from users where email like %s", values)
+    return self.__database.select("select id, email, password from users where email like %s", values)
+  
+  def __create_auth_obj(self,resultSet):
+    authObj = auth.Auth()
+    authObj.set_id(resultSet[0][0])
+    authObj.set_email(resultSet[0][1])
+    authObj.set_pasword(resultSet[0][2])
+
+    return authObj

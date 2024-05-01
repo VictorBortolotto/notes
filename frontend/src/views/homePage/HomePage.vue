@@ -27,6 +27,7 @@
       </CardContentComponent>
     </CardComponent>
     <NewTaskModalComponent></NewTaskModalComponent>
+    <ToastComponent id="toast"></ToastComponent>
     <SidebarMenuComponent></SidebarMenuComponent>
     <FloatActionButton id="open-dialog"></FloatActionButton>
   </div>
@@ -45,6 +46,7 @@
   import GridRowComponent from '../../common/components/gridComponent/GridRowComponent.vue';
   import GridColumnComponent from '../../common/components/gridComponent/GridColumnComponent.vue';
   import NewTaskModalComponent from './components/NewTaskModalComponent.vue';
+  import ToastComponent from '../../common/components/toastCompoenent/ToastComponent.vue';
   import { IonMenuButton } from '@ionic/vue';
   import { getTestList } from './js/NotesList.js' 
 </script>./js/NotesList.js

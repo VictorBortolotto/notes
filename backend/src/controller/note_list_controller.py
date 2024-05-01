@@ -12,3 +12,9 @@ class NoteListController():
   
   def update_note_list_name(self,new_name,id):
     return self.__note_list_service.update_note_list_name(new_name,id)
+
+  def get_note_list_by_id(self,id):
+    return self.__note_list_service.get_note_list_by_id(id)
+  
+  def get_note_lists(self):
+    return self.__note_list_service.get_note_lists()

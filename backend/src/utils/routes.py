@@ -9,6 +9,8 @@ class Routes(Enum):
   NEW_NOTE_LIST = NOTE_LIST + '/new'
   UPDATE_NOTE_LIST_NAME = NOTE_LIST + '/<id>/update-name'
   DELETE_NOTE_LIST = NOTE_LIST + '/<id>/delete'
+  GET_NOTE_LIST_BY_ID = NOTE_LIST + "/<id>"
+  GET_NOTE_LISTS = NOTE_LIST + "/all"
   NOTE = '/note'
   NEW_NOTE = NOTE + '/new'
   UPDATE_NOTE_NAME = NOTE + '/<id>/update-name'

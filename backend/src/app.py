@@ -40,6 +40,16 @@ def update_note_list_name(id):
   response = note_list_controller.NoteListController().update_note_list_name(new_name,id)
   return Response(response.response_to_json(),mimetype='application/json',status=response.get_status_code())
 
+@app.route(routes.Routes.GET_NOTE_LIST_BY_ID.value, methods=['GET'])
+def get_note_list_by_id(id):
+  response = note_list_controller.NoteListController().get_note_list_by_id(id)
+  return Response(response.response_to_json(),mimetype='application/json',status=response.get_status_code())
+
+@app.route(routes.Routes.GET_NOTE_LISTS.value, methods=['GET'])
+def get_note_lists():
+  response = note_list_controller.NoteListController().get_note_lists()
+  return Response(response.response_to_json(),mimetype='application/json',status=response.get_status_code())
+
 @app.route(routes.Routes.NEW_NOTE.value, methods=['POST'])
 def new_note():
   new_note = request.get_json()

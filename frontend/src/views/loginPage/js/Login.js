@@ -1,6 +1,6 @@
 import { openToast } from "../../../common/js/toast";
 import loginService from "../../../services/login.service";
-import { isEmptyOrNull, setLocalStorage } from "../../../utils/utils";
+import { isEmptyOrNull, setSessionStorage } from "../../../utils/utils";
 
 export async function onClickSignIn() {
   let email = document.getElementById('email').value;
@@ -18,7 +18,8 @@ export async function onClickSignIn() {
 
   let response = await loginService.login(user)
   if(response.statusCode === 200){
-    setLocalStorage('token',response.obj.token)
+    setSessionStorage('token',response.obj.token)
+    setSessionStorage('idUser',response.obj.idUser)
     document.location.href = '/home'
   }else{
     openToast('error', response.description)

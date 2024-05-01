@@ -1,3 +1,7 @@
+import { openToast } from "../../../common/js/toast"
+import { createNewNoteList } from "../../../services/note.list.service"
+import { getSessionStorage, isEmptyOrNull } from "../../../utils/utils"
+
 export function getTestList() {
   const myList = [
       {name: "TESTE 1"},
@@ -14,6 +18,36 @@ export function getTestList() {
   return myList
 }
 
+export async function onClickCreateNewTaskList() {
+  let name = document.getElementById('list-name').value
+
+  if(isEmptyOrNull(name)){
+    openToast('warn', "Please, fill all the fields before to continue!")
+    return
+  }
+  
+  const noteList = {
+    idUser: getSessionStorage("idUser"),
+    name: name
+  }
+
+  let response = await createNewNoteList(noteList)
+
+  console.log(response);
+  if(response.statusCode === 200){
+    openToast('success', response.description)
+  }else{
+    openToast('error', response.description)
+  }
+} 
+
+export async function onClickCancelNewTaskList() {
+  let modal = document.getElementById('dialog')
+  modal.dismiss()
+} 
+
 export default {
-  getTestList
+  getTestList,
+  onClickCreateNewTaskList,
+  onClickCancelNewTaskList
 }
