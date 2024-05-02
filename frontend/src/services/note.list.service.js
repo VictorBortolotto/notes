@@ -19,3 +19,17 @@ export const createNewNoteList = async(noteList) => {
   return response;
 
 }
+
+export const getNoteLists = async() => {
+
+  const request = {
+      method: methods.methods.get,
+      headers: header,
+      mode: 'cors',
+      cache: 'default'
+  }
+
+  let response = await fetch(routes.defaultRoute + routes.noteListRoutes.noteList + routes.noteListRoutes.getAllNoteLists, request).then(response => response.json());
+  return response;
+
+}

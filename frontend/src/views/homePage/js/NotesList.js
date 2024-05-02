@@ -1,21 +1,21 @@
 import { openToast } from "../../../common/js/toast"
-import { createNewNoteList } from "../../../services/note.list.service"
-import { getSessionStorage, isEmptyOrNull } from "../../../utils/utils"
+import { createNewNoteList, getNoteLists } from "../../../services/note.list.service"
+import { getLocalStorage, getSessionStorage, isEmptyOrNull, setLocalStorage } from "../../../utils/utils"
 
-export function getTestList() {
-  const myList = [
-      {name: "TESTE 1"},
-      {name: "TESTE 2"},
-      {name: "TESTE 3"},
-      {name: "TESTE 4"},
-      {name: "TESTE 5"},
-      {name: "TESTE 6"},
-      {name: "TESTE 7"},
-      {name: "TESTE 8"},
-      {name: "TESTE 9"}
-    ]
-  
-  return myList
+export const getNotesLists = async() => {
+  let response = await getNoteLists()
+  if (response.statusCode === 200){
+    let noteList = JSON.stringify(response.obj)
+    setLocalStorage('noteLists', noteList)
+    return response.obj;
+  }else if (response.statusCode === 404){
+    openToast('info', response.description)
+    return
+  }else{
+    openToast('error', response.description)
+    return
+  }
+
 }
 
 export async function onClickCreateNewTaskList() {
@@ -33,8 +33,15 @@ export async function onClickCreateNewTaskList() {
 
   let response = await createNewNoteList(noteList)
 
-  console.log(response);
   if(response.statusCode === 200){
+    let noteList = JSON.parse(getLocalStorage('noteLists'))
+    if(isEmptyOrNull(noteList)){
+      noteList = []
+      noteList[0] = response.obj
+    }else{
+      noteList.push(response.obj)
+    }
+    setLocalStorage('noteLists', JSON.stringify(noteList))
     openToast('success', response.description)
   }else{
     openToast('error', response.description)
@@ -47,7 +54,7 @@ export async function onClickCancelNewTaskList() {
 } 
 
 export default {
-  getTestList,
+  getNotesLists,
   onClickCreateNewTaskList,
   onClickCancelNewTaskList
 }

@@ -26,4 +26,4 @@ class NoteList():
     return '[ id: ' + str(self.get_id()) + ', id_user: ' + str(self.get_id_user()) + ', name: ' + self.get_name() + ' ]'
   
   def note_list_to_json(self):
-    return '{ "id": ' + str(self.get_id()) + ', "id_user": ' + str(self.get_id_user()) + ', "name": "' + self.get_name() + '" }'
+    return '{ "id": ' + str(self.get_id()) + ', "idUser": ' + str(self.get_id_user()) + ', "name": "' + self.get_name() + '" }'

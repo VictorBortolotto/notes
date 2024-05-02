@@ -27,6 +27,7 @@ def update_password(id):
 def new_note_list():
   new_note_list = request.get_json()
   response = note_list_controller.NoteListController().create_note_list(new_note_list)
+  print(response.response_to_json())
   return Response(response.response_to_json(),mimetype='application/json',status=response.get_status_code())
 
 @app.route(routes.Routes.DELETE_NOTE_LIST.value, methods=['DELETE'])

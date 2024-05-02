@@ -6,12 +6,13 @@ class NoteListService():
   def __init__(self):
     self.__db = database.Database()
 
-  def create_note_list(self,note_list):
-    values = (note_list['name'],note_list['idUser'])
+  def create_note_list(self,newNoteList):
+    values = (newNoteList['name'],newNoteList['idUser'])
     responseObj = {}
     resultSet = self.__db.insert("insert into note_list(name,id_user) values (%s,%s)",values)
     if resultSet['rowsAffected'] == 1:
-      responseObj = response.Response(200,"Success", "Note List Created with Success", '"idNoteList":' + str(resultSet["lastId"]))
+      noteList = note_list.NoteList(resultSet["lastId"],newNoteList['name'],newNoteList['idUser'])
+      responseObj = response.Response(200,"Success", "Note List Created with Success", noteList.note_list_to_json())
     else:
       responseObj = response.Response(500,"Error", "Error While Inserting Note List in Database", "{}")
     

@@ -15,7 +15,8 @@ const noteListRoutes = {
   noteList: '/note-list',
   newNoteList: '/new',
   updateNoteListName: '/update-name',
-  deleteNoteList: '/delete'
+  deleteNoteList: '/delete',
+  getAllNoteLists: '/all'
 }
 
 const noteRoutes = {
