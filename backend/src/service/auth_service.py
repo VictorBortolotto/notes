@@ -20,7 +20,7 @@ class AuthService():
     auth = self.__create_auth_obj(resultSet)
     
     if not self.__check_password(auth.get_password()):
-      return response.Response(401,"Unauthorized", "Wrong password!", "")
+      return response.Response(401,"Unauthorized", "Wrong password!", "{}")
     else:
       auth.set_token(self.__auth.get_token())
       return response.Response(200,"Authorized", "", auth.auth_to_json())

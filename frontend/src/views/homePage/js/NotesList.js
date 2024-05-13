@@ -1,22 +1,6 @@
 import { openToast } from "../../../common/js/toast"
-import { createNewNoteList, getNoteLists } from "../../../services/note.list.service"
+import { createNewNoteList } from "../../../services/note.list.service"
 import { getLocalStorage, getSessionStorage, isEmptyOrNull, setLocalStorage } from "../../../utils/utils"
-
-export const getNotesLists = async() => {
-  let response = await getNoteLists()
-  if (response.statusCode === 200){
-    let noteList = JSON.stringify(response.obj)
-    setLocalStorage('noteLists', noteList)
-    return response.obj;
-  }else if (response.statusCode === 404){
-    openToast('info', response.description)
-    return
-  }else{
-    openToast('error', response.description)
-    return
-  }
-
-}
 
 export async function onClickCreateNewTaskList() {
   let name = document.getElementById('list-name').value
@@ -54,7 +38,6 @@ export async function onClickCancelNewTaskList() {
 } 
 
 export default {
-  getNotesLists,
   onClickCreateNewTaskList,
   onClickCancelNewTaskList
 }
